@@ -39,21 +39,22 @@ export function ToneSlider({ value, onChange, className }: ToneSliderProps) {
 
         {/* Custom Thumb */}
         <div
-          className="absolute h-6 w-6 bg-[#EA580C] rounded-full border-[3px] border-white shadow-sm z-10 flex items-center justify-center pointer-events-none transition-all duration-300 ease-out"
+          className="absolute h-4 w-4 bg-[#EA580C] rounded-full  shadow-sm z-10 flex items-center justify-center pointer-events-none transition-all duration-300 ease-out"
           style={{
             left: `calc(${value}% + (${8 - value * 0.16}px) - 12px)`,
           }}
         >
-          <div className="w-1.5 h-1.5 bg-white rounded-full" />
+          <div className="w-1 h-1 bg-white rounded-full" />
         </div>
 
         {/* Start/End Markers (White dots in track) - Visual flair from image */}
-        <div className="absolute left-1 w-1 h-1 bg-white rounded-full z-0 pointer-events-none" />
-        <div className="absolute right-1 w-1 h-1 bg-white rounded-full z-0 pointer-events-none" />
+        <div className="absolute left-0.5 w-1 h-1 bg-white rounded-full z-0 pointer-events-none" />
+        <div className="absolute left-1/2 w-1 h-1 bg-white rounded-full z-0 pointer-events-none" />
+        <div className="absolute right-0.5 w-1 h-1 bg-white rounded-full z-0 pointer-events-none" />
       </div>
 
       {/* Labels */}
-      <div className="flex justify-between  mt-1">
+      <div className="flex justify-between">
         <span
           className={cn(
             "text-xs tracking-wide transition-colors duration-200 cursor-pointer w-20 flex justify-start",
