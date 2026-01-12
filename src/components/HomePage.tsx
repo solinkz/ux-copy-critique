@@ -13,7 +13,6 @@ export function HomePage() {
       {/* Critique section */}
       <div className="flex flex-col gap-4 col-span-3">
         <CritiqueContainer />
-        
         <Alert className="border-0 p-0 text-muted-foreground">
           <Info strokeWidth={3} />
           <AlertTitle>Content generated may be wrong </AlertTitle>
