@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { ToneSlider } from "@/components/ToneSlider";
+import { ToneSlider } from "@/components/general/ToneSlider";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 export function FormSelection() {
