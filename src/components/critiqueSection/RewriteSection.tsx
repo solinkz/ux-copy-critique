@@ -1,5 +1,6 @@
 import { ArrowDownToDot, Lightbulb, TextSelect } from "lucide-react";
-import { IssuesCard } from "./IssuesCard";
+import { Button } from "@/components/ui/button";
+import { Copy } from "lucide-react";
 
 export function RewriteSection() {
   return (
@@ -13,9 +14,19 @@ export function RewriteSection() {
           Rewrite and Improvements
         </h3>
       </div>
-      <div className="flex flex-col px-3 gap-3 ">
-        <div className="flex flex-col px-2 py-2 border border-gray-100 bg-white rounded-lg gap-3">
-          {/* Main issue defined */}
+      <div className="flex flex-col px-3 gap-3">
+        <div className="flex flex-col px-2 py-2 border border-gray-100 bg-white rounded-lg gap-3 relative">
+          <div className="p-0 absolute top-0 right-0">
+            <Button
+              variant="ghost"
+              size="icon-sm"
+              aria-label="Submit"
+              className="rounded-full cursor-pointer"
+            >
+              <Copy />
+            </Button>
+          </div>
+
           <div className="flex gap-2">
             <div className="flex  py-0.5">
               <ArrowDownToDot
@@ -27,7 +38,7 @@ export function RewriteSection() {
             <div>
               <h3 className="font-medium text-sm text-gray-900">Suggestions</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Here are some suggestions to improve the copy
+                Enter a valid email address (for example, name@email.com).{" "}
               </p>
             </div>
           </div>
