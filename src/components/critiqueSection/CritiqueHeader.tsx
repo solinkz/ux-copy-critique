@@ -3,7 +3,7 @@ import { LetterText, Component, RefreshCw, Pencil } from "lucide-react";
 
 export function CritiqueHeader() {
   return (
-    <div className="sticky top-0 z-10 bg-gradient-to-b from-gray-50 via-gray-50/90 to-transparent backdrop-blur-md p-3 pb-8 -mb-4 flex items-center justify-between">
+    <div className="sticky top-0 z-10 bg-gradient-to-b from-gray-50 via-gray-50/90 to-transparent p-3 pb-8 -mb-4 flex items-center justify-between">
       {/* For the prompt idea */}
 
       <div className="flex gap-3">
