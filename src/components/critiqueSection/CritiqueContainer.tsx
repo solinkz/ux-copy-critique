@@ -78,11 +78,11 @@ export function CritiqueContainer({
   };
 
   return (
-    <div className="col-span-3 bg-gray-50 h-[757px] md:max-h-[757px] rounded-xl border border-gray-100 relative overflow-hidden">
+    <div className="col-span-full md:col-span-3 bg-gray-50 h-[600px] sm:h-[700px] md:h-[757px] md:max-h-[757px] rounded-xl border border-gray-100 relative overflow-hidden">
       <div
         ref={scrollRef}
         onScroll={handleScroll}
-        className="h-full overflow-y-auto "
+        className="h-full overflow-y-auto"
       >
         {/* Case 1: Loading State */}
         {loading && (
