@@ -13,10 +13,20 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { analyzeUXCopy } from "@/services/uxCopyCritique"; // Import the service
 
-export function FormSelection() {
+interface FormSelectionProps {
+  uiCopy: string;
+  setUiCopy: (value: string) => void;
+  elementType: string;
+  setElementType: (value: string) => void;
+}
+
+export function FormSelection({
+  uiCopy,
+  setUiCopy,
+  elementType,
+  setElementType,
+}: FormSelectionProps) {
   const [tone, setTone] = useState(50);
-  const [uiCopy, setUiCopy] = useState("");
-  const [elementType, setElementType] = useState("");
   const [additionalContext, setAdditionalContext] = useState("");
   const [errors, setErrors] = useState<{
     uiCopy?: string;

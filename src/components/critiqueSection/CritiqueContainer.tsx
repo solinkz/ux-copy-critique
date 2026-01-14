@@ -6,7 +6,15 @@ import { RewriteSection } from "./RewriteSection";
 
 import { useRef, useState, useEffect } from "react";
 
-export function CritiqueContainer() {
+interface CritiqueContainerProps {
+  uiCopy: string;
+  elementType: string;
+}
+
+export function CritiqueContainer({
+  uiCopy,
+  elementType,
+}: CritiqueContainerProps) {
   const [isBottom, setIsBottom] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -34,7 +42,7 @@ export function CritiqueContainer() {
         onScroll={handleScroll}
         className="h-full overflow-y-auto "
       >
-        <CritiqueHeader />
+        <CritiqueHeader uiCopy={uiCopy} elementType={elementType} />
 
         <div className="flex flex-col gap-4 mt-4">
           {/* divider */}

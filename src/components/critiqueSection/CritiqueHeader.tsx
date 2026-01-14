@@ -1,7 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { LetterText, Component, RefreshCw, Pencil } from "lucide-react";
 
-export function CritiqueHeader() {
+interface CritiqueHeaderProps {
+  uiCopy: string;
+  elementType: string;
+}
+
+export function CritiqueHeader({ uiCopy, elementType }: CritiqueHeaderProps) {
   return (
     <div className="sticky top-0 z-10 bg-gradient-to-b from-gray-50 via-gray-50/90 to-transparent p-3 pb-8 -mb-4 flex items-center justify-between">
       {/* For the prompt idea */}
@@ -13,7 +18,7 @@ export function CritiqueHeader() {
           <div className="flex flex-col">
             <p className="text-xs text-gray-400">Original copy</p>
             <p className="text-xs line-clamp-1">
-              Email address is missing, try again{" "}
+              {uiCopy || "No copy provided"}
             </p>
           </div>
         </div>
@@ -22,7 +27,9 @@ export function CritiqueHeader() {
 
           <div className="flex flex-col">
             <p className="text-xs text-gray-400">Element</p>
-            <p className="text-xs line-clamp-1">Input field </p>
+            <p className="text-xs line-clamp-1">
+              {elementType || "Not selected"}
+            </p>
           </div>
         </div>
       </div>
