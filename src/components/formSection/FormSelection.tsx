@@ -11,6 +11,8 @@ import { Badge } from "@/components/ui/badge";
 import { ToneSlider } from "@/components/general/ToneSlider";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { analyzeUXCopy } from "@/services/uxCopyCritique"; // Import the service
+
 export function FormSelection() {
   const [tone, setTone] = useState(50);
   const [uiCopy, setUiCopy] = useState("");
@@ -20,8 +22,10 @@ export function FormSelection() {
     uiCopy?: string;
     elementType?: string;
   }>({});
+  const [loading, setLoading] = useState(false); // Add loading state
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    // 1. Validate inputs
     const newErrors: { uiCopy?: string; elementType?: string } = {};
     if (!uiCopy.trim()) {
       newErrors.uiCopy = "UI copy is required";
@@ -36,23 +40,47 @@ export function FormSelection() {
       return;
     }
 
+    // 2. Map tone value to string
     let toneDescription = "blend";
     if (tone === 0) toneDescription = "casual";
     if (tone === 100) toneDescription = "professional";
 
-    console.log({
-      uiCopy,
+    // 3. Prepare data object
+    const requestData = {
+      copy: uiCopy,
       type: elementType,
       context: additionalContext,
       tone: toneDescription,
-    });
+    };
 
-    // Reset form
-    setUiCopy("");
-    setElementType("");
-    setAdditionalContext("");
-    setTone(50);
-    setErrors({});
+    console.log("Submitting request:", requestData);
+    setLoading(true);
+
+    try {
+      // 4. Call the API service
+      const result = await analyzeUXCopy(
+        requestData.copy,
+        requestData.type,
+        requestData.context,
+        requestData.tone
+      );
+
+      // 5. Log the successful response from the backend (Gemini)
+      console.log("API Response:", result);
+
+      // 6. Reset form on success
+      setUiCopy("");
+      setElementType("");
+      setAdditionalContext("");
+      setTone(50);
+      setErrors({});
+    } catch (error) {
+      // 7. Handle errors (log to console for now)
+      console.error("Submission failed:", error);
+      // Ideally, show an error message to the user here (e.g. toast)
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -67,10 +95,13 @@ export function FormSelection() {
               placeholder="Paste your UI copy here"
               id="message"
               className={`text-base placeholder:text-gray-500 ${
-                errors.uiCopy ? "border-red-500 focus-visible:border-red-500 focus-visible:ring-red-100" : ""
+                errors.uiCopy
+                  ? "border-red-500 focus-visible:border-red-500 focus-visible:ring-red-100"
+                  : ""
               }`}
               value={uiCopy}
               onChange={(e) => setUiCopy(e.target.value)}
+              disabled={loading}
             />
             {errors.uiCopy && (
               <p className="text-red-500 text-xs">{errors.uiCopy}</p>
@@ -83,6 +114,7 @@ export function FormSelection() {
             <Select
               value={elementType}
               onValueChange={(val) => setElementType(val || "")}
+              disabled={loading}
             >
               <SelectTrigger
                 className={`w-full h-12 ${
@@ -127,6 +159,7 @@ export function FormSelection() {
               className="text-base min-h-8 placeholder:text-gray-500"
               value={additionalContext}
               onChange={(e) => setAdditionalContext(e.target.value)}
+              disabled={loading}
             />
           </div>
           <div className="grid w-full ">
@@ -139,8 +172,9 @@ export function FormSelection() {
           size="lg"
           className="shrink-0 mt-12 px-4 cursor-pointer"
           onClick={handleSubmit}
+          disabled={loading}
         >
-          Critique copy
+          {loading ? "Analyzing..." : "Critique copy"}
         </Button>
       </div>
     </div>

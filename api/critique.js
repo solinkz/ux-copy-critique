@@ -50,21 +50,39 @@ export default async function handler(req, res) {
       Desired Tone: ${tone}
     `;
 
+    // Debugging: Check if keys are present (do not log the actual key in production logs if possible, but for local dev it helps)
+    console.log("Using Gemini Model:", process.env.GEMINI_MODEL);
+    console.log("API Key present:", !!process.env.GEMINI_API_KEY);
+
+    if (!process.env.GEMINI_API_KEY) {
+       throw new Error("GEMINI_API_KEY is missing in environment variables.");
+    }
+
     // Call the Google Gemini API securely
     const response = await axios.post(
-      `https://generativelanguage.googleapis.com/v1beta/models/${process.env.GEMINI_MODEL}:generateContent?key=${process.env.GEMINI_API_KEY}`,
+  `https://generativelanguage.googleapis.com/v1/models/${process.env.GEMINI_MODEL}:generateContent`,
+  {
+    contents: [
       {
-        contents: [{
-          role: "user",
-          parts: [{ text: systemPrompt + "\n\n" + userPrompt }]
-        }]
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json'
-        }
+        role: "user",
+        parts: [
+          { text: systemPrompt },
+          { text: userPrompt }
+        ]
       }
-    );
+    ],
+    generationConfig: {
+      temperature: 0.3
+    }
+  },
+  {
+    headers: {
+      "Content-Type": "application/json",
+      "x-goog-api-key": process.env.GEMINI_API_KEY
+    }
+  }
+);
+
 
     // Extract the generated text from the API response
     // Accessing candidates[0].content.parts[0].text as requested
@@ -83,12 +101,17 @@ export default async function handler(req, res) {
     return res.status(200).json(parsedData);
 
   } catch (error) {
-    console.error('Error processing critique request:', error);
+    console.error('Error processing critique request:', error.message);
+    if (error.response) {
+        console.error('API Error Data:', JSON.stringify(error.response.data, null, 2));
+    }
     
     // Handle JSON parse errors specifically
     if (error instanceof SyntaxError) {
        return res.status(502).json({ error: 'Failed to parse AI response. Use a different model or try again.' });
     }
+    console.log("Calling Gemini with model:", process.env.GEMINI_MODEL);
+
 
     // Return appropriate error status
     return res.status(500).json({ 
