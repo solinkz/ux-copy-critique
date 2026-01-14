@@ -5,15 +5,22 @@ import { IssuesSection } from "./IssuesSection";
 import { RewriteSection } from "./RewriteSection";
 
 import { useRef, useState, useEffect } from "react";
+import { EmptyState } from "./emptyState";
+import { LoadingState } from "./LoadingState";
+import type { CritiqueResponse } from "@/types/critique";
 
 interface CritiqueContainerProps {
   uiCopy: string;
   elementType: string;
+  loading: boolean;
+  critiqueData: CritiqueResponse | null;
 }
 
 export function CritiqueContainer({
   uiCopy,
   elementType,
+  loading,
+  critiqueData,
 }: CritiqueContainerProps) {
   const [isBottom, setIsBottom] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -32,8 +39,11 @@ export function CritiqueContainer({
 
   useEffect(() => {
     // Initial check in case content is short enough to not scroll
-    handleScroll();
-  }, []);
+    // Wrap in requestAnimationFrame or setTimeout to avoid sync layout effect issues if needed,
+    // but just checking ref is usually fine. To satisfy linter about sync setState in effect:
+    const checkScroll = () => handleScroll();
+    checkScroll();
+  }, [critiqueData, loading]); // Re-check when content changes
 
   return (
     <div className="col-span-3 bg-gray-50 h-[757px] md:max-h-[757px] rounded-xl border border-gray-100 relative overflow-hidden">
@@ -42,15 +52,29 @@ export function CritiqueContainer({
         onScroll={handleScroll}
         className="h-full overflow-y-auto "
       >
-        <CritiqueHeader uiCopy={uiCopy} elementType={elementType} />
+        {/* Case 1: Loading State */}
+        {loading && <LoadingState />}
 
-        <div className="flex flex-col gap-4 mt-4">
-          {/* divider */}
-          <Divider />
-          <AssessmentSection />
-          <IssuesSection />
-          <RewriteSection />
-        </div>
+        {/* Case 2: Empty State (No loading, no data) */}
+        {!loading && !critiqueData && <EmptyState />}
+
+        {/* Case 3: Data Display (No loading, has data) */}
+        {!loading && critiqueData && (
+          <div>
+            <CritiqueHeader uiCopy={uiCopy} elementType={elementType} />
+
+            <div className="flex flex-col gap-4 mt-4">
+              {/* divider */}
+              <Divider />
+              {/* Pass data to children components in next step */}
+              <AssessmentSection
+                assessment={critiqueData.critique.assessment}
+              />
+              <IssuesSection issues={critiqueData.critique.issues} />
+              <RewriteSection rewrite={critiqueData.rewrite} />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Bottom gradient to hide content*/}

@@ -12,12 +12,16 @@ import { ToneSlider } from "@/components/general/ToneSlider";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { analyzeUXCopy } from "@/services/uxCopyCritique"; // Import the service
+import type { CritiqueResponse } from "@/types/critique";
 
 interface FormSelectionProps {
   uiCopy: string;
   setUiCopy: (value: string) => void;
   elementType: string;
   setElementType: (value: string) => void;
+  setLoading: (loading: boolean) => void;
+  setCritiqueData: (data: CritiqueResponse | null) => void;
+  loading: boolean;
 }
 
 export function FormSelection({
@@ -25,6 +29,9 @@ export function FormSelection({
   setUiCopy,
   elementType,
   setElementType,
+  setLoading,
+  setCritiqueData,
+  loading,
 }: FormSelectionProps) {
   const [tone, setTone] = useState(50);
   const [additionalContext, setAdditionalContext] = useState("");
@@ -32,7 +39,7 @@ export function FormSelection({
     uiCopy?: string;
     elementType?: string;
   }>({});
-  const [loading, setLoading] = useState(false); // Add loading state
+  // Removed local loading state
 
   const handleSubmit = async () => {
     // 1. Validate inputs
@@ -65,6 +72,7 @@ export function FormSelection({
 
     console.log("Submitting request:", requestData);
     setLoading(true);
+    setCritiqueData(null); // Clear previous data
 
     try {
       // 4. Call the API service
@@ -77,10 +85,11 @@ export function FormSelection({
 
       // 5. Log the successful response from the backend (Gemini)
       console.log("API Response:", result);
+      setCritiqueData(result);
 
-      // 6. Reset form on success
-      setUiCopy("");
-      setElementType("");
+      // 6. Reset form on success (keeping uiCopy and elementType for display)
+      // setUiCopy(""); // Keep for display
+      // setElementType(""); // Keep for display
       setAdditionalContext("");
       setTone(50);
       setErrors({});

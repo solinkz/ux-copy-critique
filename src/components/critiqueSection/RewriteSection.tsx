@@ -2,7 +2,14 @@ import { ArrowDownToDot, Lightbulb, TextSelect } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Copy } from "lucide-react";
 
-export function RewriteSection() {
+interface RewriteSectionProps {
+  rewrite: {
+    suggested: string;
+    reasoning: string;
+  };
+}
+
+export function RewriteSection({ rewrite }: RewriteSectionProps) {
   return (
     <div className="flex flex-col gap-2 pb-4">
       {/* Issues heading */}
@@ -38,7 +45,7 @@ export function RewriteSection() {
             <div>
               <h3 className="font-medium text-sm text-gray-900">Suggestions</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Enter a valid email address (for example, name@email.com).{" "}
+                {rewrite.suggested}
               </p>
             </div>
           </div>
@@ -53,9 +60,7 @@ export function RewriteSection() {
             <div>
               <h3 className="font-medium text-sm text-gray-900">Reasoning</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                This version clearly states what is expected, provides an
-                example to reduce ambiguity, and guides the user toward
-                correcting the error without sounding punitive.
+                {rewrite.reasoning}
               </p>
             </div>
           </div>

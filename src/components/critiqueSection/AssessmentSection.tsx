@@ -1,6 +1,10 @@
 import { ScrollText, CheckCircle2 } from "lucide-react";
 
-export function AssessmentSection() {
+interface AssessmentSectionProps {
+  assessment: string;
+}
+
+export function AssessmentSection({ assessment }: AssessmentSectionProps) {
   return (
     <div className="flex flex-col gap-2 px-3 pl-5 pb-4">
       <div className="flex gap-2">
@@ -10,8 +14,7 @@ export function AssessmentSection() {
         <div>
           <h3 className="font-medium text-sm text-gray-900">Assessment</h3>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            The message identifies an error but does not clearly explain what is
-            wrong or how to fix it.
+            {assessment}
           </p>
         </div>
       </div>
