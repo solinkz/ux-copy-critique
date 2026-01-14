@@ -8,7 +8,7 @@ import { useRef, useState, useEffect } from "react";
 import { EmptyState } from "./emptyState";
 import { LoadingState } from "./LoadingState";
 import type { CritiqueResponse } from "@/types/critique";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 interface CritiqueContainerProps {
   uiCopy: string;
@@ -53,7 +53,7 @@ export function CritiqueContainer({
     }
   }, [critiqueData]);
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -64,7 +64,7 @@ export function CritiqueContainer({
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 }, // Start invisible and dragged down 20px
     show: {
       opacity: 1,

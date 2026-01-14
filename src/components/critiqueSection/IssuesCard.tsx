@@ -34,7 +34,7 @@ export function IssuesCard({ issue, index }: IssuesCardProps) {
       </div>
       {/* Principles */}
       <div className="text-left">
-        <Tooltip position="bottom">
+        <Tooltip>
           <TooltipTrigger>
             <Badge variant="secondary" className="pl-1 rounded-md">
               <BadgeHelp strokeWidth={2.5} className="text-primary" />
