@@ -1,4 +1,3 @@
-import { BarcodeIcon } from "lucide-react";
 import uxcopylogo from "@/assets/uxcopylogo.svg";
 export function HeaderSection() {
   return (
