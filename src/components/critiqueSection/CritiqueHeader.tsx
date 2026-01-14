@@ -15,7 +15,7 @@ export function CritiqueHeader({ uiCopy, elementType }: CritiqueHeaderProps) {
   return (
     <div className="sticky top-0 z-10 bg-gradient-to-b from-gray-50 via-gray-50/90 to-transparent p-2 sm:p-3 pb-6 sm:pb-8 -mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
       {/* Cards section */}
-      <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full sm:w-auto">
+      <div className="flex  gap-2 sm:gap-3 w-full sm:w-auto">
         <div className="flex p-2 pr-3 gap-2 items-center bg-white rounded-lg border border-gray-100 w-full sm:w-auto sm:min-w-[200px]">
           <LetterText
             size={16}
@@ -47,7 +47,7 @@ export function CritiqueHeader({ uiCopy, elementType }: CritiqueHeaderProps) {
       </div>
 
       {/* Action buttons */}
-      <div className="flex gap-2 sm:gap-3 w-full sm:w-auto justify-end">
+      <div className="hidden sm:flex gap-2 sm:gap-3 w-full sm:w-auto justify-end">
         {/* Reload button with tooltip */}
         <Tooltip>
           <TooltipTrigger>
