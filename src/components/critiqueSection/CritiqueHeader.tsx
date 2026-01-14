@@ -1,4 +1,9 @@
 import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { LetterText, Component, RefreshCw, Pencil } from "lucide-react";
 
 interface CritiqueHeaderProps {
@@ -35,22 +40,41 @@ export function CritiqueHeader({ uiCopy, elementType }: CritiqueHeaderProps) {
       </div>
 
       <div className="flex gap-3">
-        <Button
-          variant="secondary"
-          size="icon-sm"
-          aria-label="Submit"
-          className="rounded-full border border-gray-200"
-        >
-          <RefreshCw />
-        </Button>
-        <Button
-          variant="secondary"
-          size="icon-sm"
-          aria-label="Submit"
-          className="rounded-full border border-gray-200"
-        >
-          <Pencil />
-        </Button>
+        {/* Reload button with tooltip */}
+        <Tooltip>
+          <TooltipTrigger>
+            <Button
+              variant="secondary"
+              size="icon-sm"
+              aria-label="Regenerate critique"
+              className="rounded-full border border-gray-200 opacity-50 cursor-not-allowed"
+              disabled
+            >
+              <RefreshCw />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Regenerate critique (Coming soon)</p>
+          </TooltipContent>
+        </Tooltip>
+
+        {/* Edit button with tooltip */}
+        <Tooltip>
+          <TooltipTrigger>
+            <Button
+              variant="secondary"
+              size="icon-sm"
+              aria-label="Edit original copy"
+              className="rounded-full border border-gray-200 opacity-50 cursor-not-allowed"
+              disabled
+            >
+              <Pencil />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Edit original copy (Coming soon)</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
     </div>
   );

@@ -1,4 +1,9 @@
 import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
 import { BadgeHelp } from "lucide-react";
 
 interface IssuesCardProps {
@@ -28,10 +33,19 @@ export function IssuesCard({ issue, index }: IssuesCardProps) {
         </div>
       </div>
       {/* Principles */}
-      <Badge variant="secondary" className="pl-1 rounded-md">
-        <BadgeHelp strokeWidth={2.5} className="text-primary" />
-        <span className="text-muted-foreground">{issue.principle}</span>
-      </Badge>
+      <div className="text-left">
+        <Tooltip position="bottom">
+          <TooltipTrigger>
+            <Badge variant="secondary" className="pl-1 rounded-md">
+              <BadgeHelp strokeWidth={2.5} className="text-primary" />
+              <span className="text-muted-foreground">{issue.principle}</span>
+            </Badge>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Priciple used</p>
+          </TooltipContent>
+        </Tooltip>
+      </div>
     </div>
   );
 }
