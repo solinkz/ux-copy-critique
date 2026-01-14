@@ -24,6 +24,7 @@ interface FormSelectionProps {
   loading: boolean;
   setSubmittedUiCopy: (value: string) => void;
   setSubmittedElementType: (value: string) => void;
+  setErrorMessage: (message: string | null) => void;
 }
 
 export function FormSelection({
@@ -36,6 +37,7 @@ export function FormSelection({
   loading,
   setSubmittedUiCopy,
   setSubmittedElementType,
+  setErrorMessage,
 }: FormSelectionProps) {
   const [tone, setTone] = useState(50);
   const [additionalContext, setAdditionalContext] = useState("");
@@ -82,6 +84,7 @@ export function FormSelection({
 
     setLoading(true);
     setCritiqueData(null); // Clear previous data
+    setErrorMessage(null); // Clear previous errors
 
     try {
       // 4. Call the API service
@@ -102,10 +105,29 @@ export function FormSelection({
       setAdditionalContext("");
       setTone(50);
       setErrors({});
-    } catch (error) {
+    } catch (error: unknown) {
       // 7. Handle errors (log to console for now)
       console.error("Submission failed:", error);
-      // Ideally, show an error message to the user here (e.g. toast)
+
+      let errorStr = "";
+      if (error instanceof Error) {
+        errorStr = error.message.toLowerCase();
+      } else {
+        errorStr = String(error).toLowerCase();
+      }
+
+      // Check for specific quota error from API/Service
+      if (
+        errorStr.includes("limit") ||
+        errorStr.includes("quota") ||
+        errorStr.includes("429")
+      ) {
+        setErrorMessage("We’ve hit our limit. Come back soon 👋");
+      } else {
+        const msg =
+          error instanceof Error ? error.message : "An error occurred";
+        setErrorMessage(msg);
+      }
     } finally {
       setLoading(false);
     }

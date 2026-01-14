@@ -112,9 +112,12 @@ export default async function handler(req, res) {
     }
 
     // Return appropriate error status
-    return res.status(500).json({ 
-      error: 'Internal Server Error', 
-      details: error.response?.data || error.message 
+    const status = error.response?.status || 500;
+    const errorMessage = error.response?.data?.error?.message || error.message;
+
+    return res.status(status).json({ 
+      error: status === 429 ? 'Quota Exceeded' : 'Internal Server Error', 
+      details: errorMessage
     });
   }
 }

@@ -15,7 +15,9 @@ export async function analyzeUXCopy(copy, type, context, tone) {
 
     // Normalize error for the UI
     if (error.response) {
-      throw new Error(error.response.data?.error || "Server error");
+      const status = error.response.status;
+      const message = error.response.data?.error || "Server error";
+      throw new Error(`${status}: ${message}`);
     }
 
     throw new Error("Network error. Please try again.");

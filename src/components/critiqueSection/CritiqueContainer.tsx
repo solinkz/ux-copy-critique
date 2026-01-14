@@ -8,13 +8,14 @@ import { useRef, useState, useEffect } from "react";
 import { EmptyState } from "./emptyState";
 import { LoadingState } from "./LoadingState";
 import type { CritiqueResponse } from "@/types/critique";
-import { motion, type Variants } from "framer-motion";
+import { motion } from "framer-motion";
 
 interface CritiqueContainerProps {
   uiCopy: string;
   elementType: string;
   loading: boolean;
   critiqueData: CritiqueResponse | null;
+  errorMessage: string | null;
 }
 
 export function CritiqueContainer({
@@ -22,6 +23,7 @@ export function CritiqueContainer({
   elementType,
   loading,
   critiqueData,
+  errorMessage,
 }: CritiqueContainerProps) {
   const [isBottom, setIsBottom] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -53,30 +55,6 @@ export function CritiqueContainer({
     }
   }, [critiqueData]);
 
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15, // Stagger each child by 0.15s
-        delayChildren: 0.1, // Wait 0.1s before starting
-      },
-    },
-  };
-
-  const itemVariants: Variants = {
-    hidden: { opacity: 0, y: 20 }, // Start invisible and dragged down 20px
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 50,
-        damping: 15,
-      },
-    },
-  };
-
   return (
     <div className="col-span-full md:col-span-3 bg-gray-50 h-[600px] sm:h-[700px] md:h-[757px] md:max-h-[757px] rounded-xl border border-gray-100 relative overflow-hidden">
       <div
@@ -93,7 +71,7 @@ export function CritiqueContainer({
         )}
 
         {/* Case 2: Empty State (No loading, no data) */}
-        {!loading && !critiqueData && <EmptyState />}
+        {!loading && !critiqueData && <EmptyState message={errorMessage} />}
 
         {/* Case 3: Data Display (No loading, has data) */}
         {!loading && critiqueData && (
@@ -102,27 +80,61 @@ export function CritiqueContainer({
 
             <motion.div
               className="flex flex-col gap-4 mt-4 pb-8"
-              variants={containerVariants}
-              initial="hidden"
-              animate="show"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
             >
-              {/* divider */}
-              <motion.div variants={itemVariants}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 50,
+                  damping: 15,
+                  delay: 0.1,
+                }}
+              >
                 <Divider />
               </motion.div>
 
               {/* Pass data to children components in next step */}
-              <motion.div variants={itemVariants}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 50,
+                  damping: 15,
+                  delay: 0.25,
+                }}
+              >
                 <AssessmentSection
                   assessment={critiqueData.critique.assessment}
                 />
               </motion.div>
 
-              <motion.div variants={itemVariants}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 50,
+                  damping: 15,
+                  delay: 0.4,
+                }}
+              >
                 <IssuesSection issues={critiqueData.critique.issues} />
               </motion.div>
 
-              <motion.div variants={itemVariants}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 50,
+                  damping: 15,
+                  delay: 0.55,
+                }}
+              >
                 <RewriteSection rewrite={critiqueData.rewrite} />
               </motion.div>
             </motion.div>
