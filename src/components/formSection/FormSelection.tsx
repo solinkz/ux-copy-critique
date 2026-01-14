@@ -22,6 +22,8 @@ interface FormSelectionProps {
   setLoading: (loading: boolean) => void;
   setCritiqueData: (data: CritiqueResponse | null) => void;
   loading: boolean;
+  setSubmittedUiCopy: (value: string) => void;
+  setSubmittedElementType: (value: string) => void;
 }
 
 export function FormSelection({
@@ -32,6 +34,8 @@ export function FormSelection({
   setLoading,
   setCritiqueData,
   loading,
+  setSubmittedUiCopy,
+  setSubmittedElementType,
 }: FormSelectionProps) {
   const [tone, setTone] = useState(50);
   const [additionalContext, setAdditionalContext] = useState("");
@@ -71,6 +75,11 @@ export function FormSelection({
     };
 
     console.log("Submitting request:", requestData);
+
+    // Save the submitted values for the header
+    setSubmittedUiCopy(uiCopy);
+    setSubmittedElementType(elementType);
+
     setLoading(true);
     setCritiqueData(null); // Clear previous data
 
@@ -87,9 +96,9 @@ export function FormSelection({
       console.log("API Response:", result);
       setCritiqueData(result);
 
-      // 6. Reset form on success (keeping uiCopy and elementType for display)
-      // setUiCopy(""); // Keep for display
-      // setElementType(""); // Keep for display
+      // 6. Reset form on success
+      setUiCopy("");
+      setElementType("");
       setAdditionalContext("");
       setTone(50);
       setErrors({});
