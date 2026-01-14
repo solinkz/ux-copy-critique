@@ -151,7 +151,7 @@ export function FormSelection({
                     : ""
                 }`}
               >
-                <SelectValue placeholder="Select element type" />
+                <SelectValue />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="button">Button</SelectItem>
