@@ -53,7 +53,12 @@ export function CritiqueContainer({
         className="h-full overflow-y-auto "
       >
         {/* Case 1: Loading State */}
-        {loading && <LoadingState />}
+        {loading && (
+          <div>
+            <CritiqueHeader uiCopy={uiCopy} elementType={elementType} />
+            <LoadingState />
+          </div>
+        )}
 
         {/* Case 2: Empty State (No loading, no data) */}
         {!loading && !critiqueData && <EmptyState />}

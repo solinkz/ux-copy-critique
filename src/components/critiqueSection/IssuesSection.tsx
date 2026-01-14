@@ -21,7 +21,7 @@ export function IssuesSection({ issues }: IssuesSectionProps) {
       </div>
       <div className="flex flex-col px-3 gap-3 ">
         {issues.map((issue, index) => (
-          <IssuesCard key={index} issue={issue} />
+          <IssuesCard key={index} issue={issue} index={index} />
         ))}
       </div>
     </div>

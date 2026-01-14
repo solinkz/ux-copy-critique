@@ -10,6 +10,8 @@ import type { CritiqueResponse } from "@/types/critique";
 export function HomePage() {
   const [uiCopy, setUiCopy] = useState("");
   const [elementType, setElementType] = useState("");
+  const [submittedUiCopy, setSubmittedUiCopy] = useState("");
+  const [submittedElementType, setSubmittedElementType] = useState("");
   const [loading, setLoading] = useState(false);
   const [critiqueData, setCritiqueData] = useState<CritiqueResponse | null>(
     null
@@ -27,13 +29,15 @@ export function HomePage() {
           setLoading={setLoading}
           setCritiqueData={setCritiqueData}
           loading={loading}
+          setSubmittedUiCopy={setSubmittedUiCopy}
+          setSubmittedElementType={setSubmittedElementType}
         />
       </div>
       {/* Critique section */}
       <div className="flex flex-col gap-4 col-span-3">
         <CritiqueContainer
-          uiCopy={uiCopy}
-          elementType={elementType}
+          uiCopy={submittedUiCopy}
+          elementType={submittedElementType}
           loading={loading}
           critiqueData={critiqueData}
         />
