@@ -18,8 +18,8 @@ export function HomePage() {
   );
 
   return (
-    <div className="mx-auto grid min-h-screen w-full max-w-6xl min-w-0 content-center items-start gap-8 p-4 pt-2 sm:gap-12 sm:p-6 md:grid-cols-5 md:gap-30 md:items-center lg:p-2">
-      <div className="col-span-2 ">
+    <div className="mx-auto grid min-h-screen w-full max-w-6xl min-w-0 content-center items-start gap-6 p-3 pt-2 sm:gap-8 sm:p-4 md:grid-cols-5 md:gap-12 md:items-center lg:p-2">
+      <div className="col-span-full md:col-span-2">
         <HeaderSection />
         <FormSelection
           uiCopy={uiCopy}
@@ -34,7 +34,7 @@ export function HomePage() {
         />
       </div>
       {/* Critique section */}
-      <div className="flex flex-col gap-4 col-span-3">
+      <div className="flex flex-col gap-4 col-span-full md:col-span-3">
         <CritiqueContainer
           uiCopy={submittedUiCopy}
           elementType={submittedElementType}

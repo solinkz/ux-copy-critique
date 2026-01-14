@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     // specific system prompt acting as a senior UX writer
     const systemPrompt = `You are a Senior UX Writer and Content Strategist. 
     Your goal is to critique and improve UI microcopy based on best practices for clarity, conciseness, and human-centered design.
-    You will receive a piece of UI copy, its type (e.g., button, label), context, and a desired tone.
+    You will receive a piece of UI copy, its type (e.g., button, label), context, and a desired tone which will guide your critique and rewrite.
     
     Output your response as a valid JSON object with the following structure:
     {
@@ -110,8 +110,6 @@ export default async function handler(req, res) {
     if (error instanceof SyntaxError) {
        return res.status(502).json({ error: 'Failed to parse AI response. Use a different model or try again.' });
     }
-    console.log("Calling Gemini with model:", process.env.GEMINI_MODEL);
-
 
     // Return appropriate error status
     return res.status(500).json({ 

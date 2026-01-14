@@ -39,7 +39,7 @@ export function ToneSlider({ value, onChange, className }: ToneSliderProps) {
 
         {/* Custom Thumb */}
         <div
-          className="absolute h-4 w-4 bg-[#EA580C] rounded-full  shadow-sm z-10 flex items-center justify-center pointer-events-none transition-all duration-300 ease-out"
+          className="absolute h-4 w-4 bg-[#EA580C] rounded-full shadow-sm z-10 flex items-center justify-center pointer-events-none transition-all duration-300 ease-out"
           style={{
             left: `calc(${value}% + (${8 - value * 0.16}px) - 12px)`,
           }}
@@ -54,10 +54,10 @@ export function ToneSlider({ value, onChange, className }: ToneSliderProps) {
       </div>
 
       {/* Labels */}
-      <div className="flex justify-between">
+      <div className="flex justify-between px-0.5">
         <span
           className={cn(
-            "text-xs tracking-wide transition-colors duration-200 cursor-pointer w-20 flex justify-start",
+            "text-[10px] sm:text-xs tracking-wide transition-colors duration-200 cursor-pointer flex-shrink-0",
             value === 0
               ? "text-foreground font-medium"
               : "text-muted-foreground"
@@ -68,7 +68,7 @@ export function ToneSlider({ value, onChange, className }: ToneSliderProps) {
         </span>
         <span
           className={cn(
-            "text-xs tracking-wide transition-colors duration-200 cursor-pointer w-20 flex text-cente justify-center",
+            "text-[10px] sm:text-xs tracking-wide transition-colors duration-200 cursor-pointer flex-shrink-0",
             value === 50
               ? "text-foreground font-medium"
               : "text-muted-foreground"
@@ -79,7 +79,7 @@ export function ToneSlider({ value, onChange, className }: ToneSliderProps) {
         </span>
         <span
           className={cn(
-            "text-xs tracking-wide transition-colors duration-200 cursor-pointer w-20 flex",
+            "text-[10px] sm:text-xs tracking-wide transition-colors duration-200 cursor-pointer flex-shrink-0",
             value === 100
               ? "text-foreground font-medium"
               : "text-muted-foreground"

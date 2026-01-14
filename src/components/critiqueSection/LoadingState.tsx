@@ -19,7 +19,7 @@ export function LoadingState() {
   }, []);
 
   return (
-    <div className="flex flex-col md:min-h-[650px] items-center justify-center">
+    <div className="flex flex-col md:min-h-[650px] min-h-[450px] items-center justify-center">
       <div className="w-[200px] text-center mx-auto flex flex-col items-center">
         <img src={uxcopyloading} alt="loading icon" className="h-8" />
         <p className="text-gray-500 text-sm font-semibold leading-5 opacity-75 mt-2">
