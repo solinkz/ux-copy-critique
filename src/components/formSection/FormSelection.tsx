@@ -76,8 +76,6 @@ export function FormSelection({
       tone: toneDescription,
     };
 
-    console.log("Submitting request:", requestData);
-
     // Save the submitted values for the header
     setSubmittedUiCopy(uiCopy);
     setSubmittedElementType(elementType);
@@ -96,7 +94,7 @@ export function FormSelection({
       );
 
       // 5. Log the successful response from the backend (Gemini)
-      console.log("API Response:", result);
+
       setCritiqueData(result);
 
       // 6. Reset form on success
@@ -106,7 +104,7 @@ export function FormSelection({
       setTone(50);
       setErrors({});
     } catch (error: unknown) {
-      // 7. Handle errors (log to console for now)
+      // 7. Handle errors
       console.error("Submission failed:", error);
 
       let errorStr = "";

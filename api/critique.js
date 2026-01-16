@@ -51,8 +51,7 @@ export default async function handler(req, res) {
     `;
 
     // Debugging: Check if keys are present (do not log the actual key in production logs if possible, but for local dev it helps)
-    console.log("Using Gemini Model:", process.env.GEMINI_MODEL);
-    console.log("API Key present:", !!process.env.GEMINI_API_KEY);
+
 
     if (!process.env.GEMINI_API_KEY) {
        throw new Error("GEMINI_API_KEY is missing in environment variables.");
