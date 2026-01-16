@@ -1,3 +1,3 @@
 # React + TypeScript + Vite + shadcn/ui
 
-This is a template for a new Vite project with React, TypeScript, and shadcn/ui.
+Test it out here ( https://uxcc.vercel.app )
