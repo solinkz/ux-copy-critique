@@ -54,7 +54,7 @@ export function RewriteSection({ rewrite }: RewriteSectionProps) {
         <div className="flex flex-col px-2 py-2 border border-gray-100 bg-white rounded-lg gap-3 relative">
           <div className="p-0 absolute top-0 right-0">
             <Tooltip>
-              <TooltipTrigger asChild>
+              <TooltipTrigger>
                 <Button
                   variant="ghost"
                   size="icon-sm"

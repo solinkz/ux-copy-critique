@@ -13,6 +13,7 @@ export function HomePage() {
   const [submittedUiCopy, setSubmittedUiCopy] = useState("");
   const [submittedElementType, setSubmittedElementType] = useState("");
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [critiqueData, setCritiqueData] = useState<CritiqueResponse | null>(
     null
   );
@@ -31,6 +32,7 @@ export function HomePage() {
           loading={loading}
           setSubmittedUiCopy={setSubmittedUiCopy}
           setSubmittedElementType={setSubmittedElementType}
+          setErrorMessage={setErrorMessage}
         />
       </div>
       {/* Critique section */}
@@ -40,6 +42,7 @@ export function HomePage() {
           elementType={submittedElementType}
           loading={loading}
           critiqueData={critiqueData}
+          errorMessage={errorMessage}
         />
         <Alert className="border-0 p-0 text-muted-foreground">
           <Info strokeWidth={3} />
